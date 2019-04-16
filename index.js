@@ -3,6 +3,7 @@ const bot = new Commando.Client();
 const Token = 'NTY3ODI5NDU3NzEzNDk2MDc1.XLZR5g.7cL1zxii7vvIoCz-uV-1hn2gtXY'
 
 bot.registry.registerGroup('random', 'Random');
+bot.registry.registerGroup('music', 'Music');
 bot.registry.registerDefaults();
 bot.registry.registerCommandsIn(__dirname + '/commands');
 
