@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core');
 function play(connection, message, server)
 {
     
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: "audioonly"}));
+    server.dispatcher = connection.playStream(ytdl(server.queue[0], { audioonly: true }), { passes : 5 });
     server.queue.shift();
     server.dispatcher.on("end", function()
     {
@@ -14,7 +14,7 @@ function play(connection, message, server)
         }
         else
         {
-           
+            message.member.voiceChannel.leave();
         }
     })
 }
@@ -30,8 +30,6 @@ class Play extends commando.Command
             memberName:'play',
             description:'ca joue de la criss de music'
         })
-
-
     }
     
     async run(message, args)
