@@ -1,27 +1,8 @@
 const commando = require('discord.js-commando');
-const ytdl = require('ytdl-core');
-
-function play(connection, message, server)
-{
-    
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], { audioonly: true }), { passes : 5 });
-    server.queue.shift();
-    server.dispatcher.on("end", function()
-    {
-        if(server.queue[0])
-        {
-            play(connection, message, server);
-        }
-        else
-        {
-            message.member.voiceChannel.leave();
-        }
-    })
-}
+const player = require('./YTPlayer');
 
 class Play extends commando.Command
 {
- 
     constructor(client)
     {
         super(client,{
@@ -34,28 +15,33 @@ class Play extends commando.Command
     
     async run(message, args)
     {
-        if(message.member.voiceChannel)
-        {
-            if(!message.guild.voiceChannel)
+        try{
+            if(message.member.voiceChannel)
             {
-                if(!servers[message.guild.id])
+                if(!message.guild.voiceChannel)
                 {
-                    servers[message.guild.id] = {queue: []};
+                    if(!servers[message.guild.id])
+                    {
+                        servers[message.guild.id] = {queue: []};
+                    }
+                    message.member.voiceChannel.join()
+                    .then(connection =>{
+                        message.reply("Salut mon bon dieux!");
+                        var server = servers[message.guild.id]
+                        server.queue.push(args);
+                        player.play(connection, message, server);
+                    })
                 }
-                message.member.voiceChannel.join()
-                .then(connection =>{
-                    message.reply("Salut mon bon dieux!");
-                    var server = servers[message.guild.id]
-                    server.queue.push(args);
-                    play(connection, message, server);
-                })
+            }
+            else
+            {
+                message.reply("t'est pas dans un channel mon bon dieux!");
             }
         }
-        else
+        catch(error)
         {
-            message.reply("t'est pas dans un channel mon bon dieux!");
-        }
-        
+            console.log("an error has occured" + error);
+        } 
     }
 }
 module.exports = Play;
