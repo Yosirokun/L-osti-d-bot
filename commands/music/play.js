@@ -13,7 +13,7 @@ class Play extends commando.Command
         })
     }
     
-    async run(message, args)
+    async run(message, args = null)
     {
         try{
             if(message.member.voiceChannel)
@@ -26,10 +26,25 @@ class Play extends commando.Command
                     }
                     message.member.voiceChannel.join()
                     .then(connection =>{
-                        message.reply("Salut mon bon dieux!");
-                        var server = servers[message.guild.id]
-                        server.queue.push(args);
-                        player.play(connection, message, server);
+                        if(args != null)
+                        {
+                            var server = servers[message.guild.id]; 
+                            console.log("get isPlaying: " + player.isPlaying);
+                            if(!player.getIsPlaying()) 
+                            {
+                                server.queue.push(args);
+                                player.play(connection, message, server);
+                            }
+                            else
+                            {
+                                player.addToQueue(message, args);
+                            }                     
+                               
+                        }
+                        else
+                        {
+                            message.reply("tu m'a pas donné dtoune mon seigneur");
+                        }
                     })
                 }
             }

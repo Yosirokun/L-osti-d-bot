@@ -1,4 +1,5 @@
 const commando = require('discord.js-commando');
+const player = require('./YTPlayer');
 
 class Decaliss extends commando.Command
 {
@@ -15,8 +16,9 @@ class Decaliss extends commando.Command
     {
        if(message.guild.voiceConnection)
        {
-           message.reply("Okay jmenva mon ciboire!");
-           message.guild.voiceConnection.disconnect();
+            message.reply("Okay jmenva mon ciboire!");
+            message.guild.voiceConnection.disconnect();
+            player.stopPlaying();
        }
        else
        {
