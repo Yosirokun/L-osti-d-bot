@@ -18,7 +18,8 @@ class Decaliss extends commando.Command
        {
             message.reply("Okay jmenva mon ciboire!");
             message.guild.voiceConnection.disconnect();
-            player.stopPlaying();
+            if(player.getIsPlaying())
+                player.stopPlaying(servers[message.guild.id]);
        }
        else
        {
