@@ -3,7 +3,8 @@ const ytdl = require('ytdl-core');
 
 function play (connection, message, server)
 {
-    server.dispatcher = connection.playStream(ytdl(server.queue[0], { audioonly: true }), { passes : 5 });
+    server.dispatcher = connection.playStream(ytdl(server.queue[0], { audioonly: true }), { passes : 5});
+    server.dispatcher.setBitrate('auto');
     setEvents(connection, message, server);
     server.queue.shift();
 }
@@ -22,11 +23,7 @@ function setEvents(connection, message, server)
                     console.log("should play again");
                     await play(connection, message, server);     
                 }
-                else
-                {
-                    console.log("should disconnect");
-                    message.guild.voiceConnection.disconnect();                          
-                }
+               
             });
 }
 class YTPlayer
@@ -38,15 +35,30 @@ class YTPlayer
     
     async play(connection, message, server)
     {
+        
         try{
             this.isPlaying = true;         
             console.log("in play");
-            play(connection, message, server);                     
+            play(connection, message, server);
+                                 
         }
         catch(err){console.log("an error as occured" + err);}
     }
     
-    
+    skipSong(server)
+    {
+        console.log("Should end and skip the song");
+        if(!server.queue[0])
+        {
+            server.dispatcher.end();
+            this.isPlaying = false;
+        }
+        else 
+        {
+            server.dispatcher.end();
+        }
+        console.log("Stream : " + server.dispatcher.stream + " queue : " + server.queue + " isPlaying : " + this.isPlaying);
+    }
     
     
     stopPlaying(server)
