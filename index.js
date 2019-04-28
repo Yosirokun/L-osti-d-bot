@@ -1,7 +1,8 @@
 const Commando = require('discord.js-commando');
-const bot = new Commando.Client();
 const config = require('./config.json');
-
+const bot = new Commando.Client({
+    commandPrefix: config.Prefix
+    });
 bot.registry.registerGroup('random', 'Random');
 bot.registry.registerGroup('music', 'Music');
 bot.registry.registerDefaults();
@@ -11,6 +12,7 @@ global.servers = {};
 
 bot.on('ready', function()
 {
+    bot.user.setActivity(config.Activity); 
     console.log("Le bot run!");
 });
 

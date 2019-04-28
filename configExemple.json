@@ -1,3 +1,5 @@
 {
-    "Token": "Your token here"
+    "Token": "Your token here",
+    "Activity": "Activity message here",
+    "Prefix": "Prefix which the bot listens for commands here"
 }
