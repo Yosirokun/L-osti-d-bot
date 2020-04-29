@@ -1,5 +1,6 @@
 {
     "Token": "Your token here",
     "Activity": "Activity message here",
-    "Prefix": "Prefix which the bot listens for commands here"
+    "Prefix": "Prefix which the bot listens for commands here",
+    "GitToken": "GitHub access token for issue posting here"
 }
