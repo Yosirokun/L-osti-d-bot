@@ -1,4 +1,5 @@
 {
+    "Note": "Rename this file to config.json",
     "Token": "Your token here",
     "Activity": "Activity message here",
     "Prefix": "Prefix which the bot listens for commands here",
