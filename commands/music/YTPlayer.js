@@ -5,6 +5,7 @@ class YTPlayer {
 	static async play(connection, message, server) {
 		try {
 			server.IsYTPlayerPlaying = true;
+			server.stoppedManualy = false;
 			console.log("in play");
 			await this.playStream(connection, message, server);
 		} catch (err) {
@@ -33,6 +34,7 @@ class YTPlayer {
 
 	static stopPlaying(server) {
 		server.queue = [];
+		server.stoppedManualy = true;
 		server.IsYTPlayerPlaying = false;
 		console.log("stopped playing");
 	}
@@ -49,13 +51,15 @@ class YTPlayer {
 				await YTPlayer.play(connection, message, server);
 			} else {
 				console.log(message.channel);
-				message.channel
-					.send("J'ai fini de jouer! j... Décaliss!")
-					.then((message) => {
-						console.log(`Sent message: ${message.content}`);
-						connection.disconnect();
-					})
-					.catch(console.error);
+				if (!server.stoppedManualy) {
+					message.channel
+						.send("J'ai fini de jouer! j... Décaliss!")
+						.then((message) => {
+							console.log(`Sent message: ${message.content}`);
+							connection.disconnect();
+						})
+						.catch(console.error);
+				}
 			}
 		});
 	}

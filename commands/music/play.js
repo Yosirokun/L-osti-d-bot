@@ -11,8 +11,6 @@ class Play extends commando.Command {
 		});
 	}
 
-	static servers;
-
 	async run(message, args) {
 		try {
 			if (message.member.voiceChannel) {
