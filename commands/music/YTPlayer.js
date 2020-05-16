@@ -85,7 +85,7 @@ class YTPlayer {
 				stringChoice =
 					stringChoice + (i + 1) + ": " + videoNamesIds[i].name + "\n";
 			}
-			var filter = (m) => m == "1" || m == "2" || m == "3";
+			var filter = (m) => m != null;
 			message.reply(stringChoice).then(() => {
 				message.channel
 					.awaitMessages(filter, { max: 1, time: 30000, errors: ["time"] })
@@ -113,7 +113,7 @@ class YTPlayer {
 								"https://www.youtube.com/watch?v=" + videoNamesIds[2].id
 							);
 						} else {
-							message.reply(
+							message.channel.send(
 								"caliss t'avait juste à choisir dans la crisse de liste!"
 							);
 						}
