@@ -154,9 +154,9 @@ class YTPlayer {
 		console.log("Toune qui va partir: " + server.queue[0]);
 		server.dispatcher = connection.playStream(
 			ytdl(server.queue[0], { audioonly: true }),
-			{ passes: 5 }
+			{ volume: false, bitrate: "auto" }
 		);
-		server.dispatcher.setBitrate("auto");
+
 		this.setEvents(connection, message, server);
 		server.queue.shift();
 	}
