@@ -24,6 +24,9 @@
     "github-create-issue": "^2.0.0",
     "got": "^9.6.0",
     "opusscript": "0.0.6",
+    "request": "^2.88.2",
+    "youtube-api-v3-search": "^1.2.1",
+    "youtube-search": "^1.1.4",
     "ytdl-core": "^1.0.0"
   }
 }

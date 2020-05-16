@@ -1,7 +1,8 @@
 {
-    "Note": "Rename this file to config.json",
-    "Token": "Your token here",
-    "Activity": "Activity message here",
-    "Prefix": "Prefix which the bot listens for commands here",
-    "GitToken": "GitHub access token for issue posting here"
+	"Note": "Rename this file to config.json",
+	"Token": "Your token here",
+	"Activity": "Activity message here",
+	"Prefix": "Prefix which the bot listens for commands here",
+	"GitToken": "GitHub access token for issue posting here",
+	"YoutubeApiKey": "Your Google Data API Key"
 }

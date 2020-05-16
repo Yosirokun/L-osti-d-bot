@@ -18,18 +18,46 @@ class Play extends commando.Command {
 					if (!servers[message.guild.id]) {
 						servers[message.guild.id] = { queue: [] };
 					}
-					message.member.voiceChannel.join().then((connection) => {
+					message.member.voiceChannel.join().then(async (connection) => {
 						if (args) {
 							var server = servers[message.guild.id];
 							console.log("get isPlaying: " + server.IsYTPlayerPlaying);
+
 							if (!server.IsYTPlayerPlaying) {
-								server.queue.push(args);
-								message.reply("Salut mon bon dieux!");
-								player.play(connection, message, server);
+								if (player.isAYoutubeLink(args)) {
+									server.queue.push(args);
+									message.reply("Salut mon bon dieux!");
+									player.play(connection, message, server);
+								} else {
+									await player.searchVideo(
+										args,
+										connection,
+										message,
+										server,
+										(connection, message, server, videoId) => {
+											server.queue.push(videoId);
+											message.reply("Salut mon bon dieux!");
+											player.play(connection, message, server);
+										}
+									);
+								}
 							} else {
-								message.reply("ta toune est adder vieux");
-								server.queue.push(args);
-								console.log("queue: " + server.queue);
+								if (player.isAYoutubeLink(args)) {
+									message.reply("ta toune est adder vieux");
+									server.queue.push(args);
+									console.log("queue: " + server.queue);
+								} else {
+									await player.searchVideo(
+										args,
+										connection,
+										message,
+										server,
+										(connection, message, server, videoId) => {
+											server.queue.push(videoId);
+											message.reply("ta toune est adder vieux");
+										}
+									);
+								}
 							}
 						} else {
 							message.reply("tu m'a pas donné dtoune mon seigneur");
