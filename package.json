@@ -22,7 +22,7 @@
     "ffbinaries": "^1.1.1",
     "ffmpeg": "0.0.4",
     "github-create-issue": "^2.0.0",
-    "got": "^9.6.0",
+    "got": "^11.8.5",
     "opusscript": "0.0.6",
     "ytdl-core": "^1.0.0"
   }
